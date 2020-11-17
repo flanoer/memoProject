@@ -1,28 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/web/js/lib/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" charset="utf-8">
-const abc = '°¡³ª´Ù';
-const bbc = '³ª³ª´Ù';
-console.log(abc+' ´Â' + bbc + '´Ù');
+const abc = 'ê°€ë‚˜ë‹¤';
+const bbc = 'ë‚˜ë‚˜ë‹¤';
+console.log(abc+' ëŠ”' + bbc + 'ë‹¤');
 
-// jsp ¿¡¼­´Â text interpolation °ú °ü·ÃÇÏ¿© el tag ¿Í Ãæµ¹ÀÌ ÀÏ¾î³².
-// µû¶ó¼­ ÀÏ¹İÀûÀÎ Çü½ÄÀ¸·Î template literal À» »ç¿ëÇÒ ¼ö ¾øÀ½.
+// jsp ì—ì„œëŠ” text interpolation ê³¼ ê´€ë ¨í•˜ì—¬ el tag ì™€ ì¶©ëŒì´ ì¼ì–´ë‚¨.
+// ë”°ë¼ì„œ ì¼ë°˜ì ì¸ í˜•ì‹ìœ¼ë¡œ template literal ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ.
 
-// 1. js ÆÄÀÏ·Î µû·Î °ü¸®ÇÑ´Ù¸é template literal À» Á¤»óÀûÀ¸·Î »ç¿ë°¡´ÉÇÔ.
-// 2. ¾Æ·¡¿Í °°ÀÌ el tag ³»ºÎ¿¡ js ÀÇ º¯¼ö¸¦ ³Ö¾î¼­ »ç¿ë
-// 3. backslash ·Î jsp el tag°¡ ¹«½ÃµÇµµ·Ï ÇÔ
-console.log(`111 ${'${abc}'} ¿Í ${'${bbc}'} È®ÀÎ`);
-console.log(`222 \${abc} ¿Í \${bbc} È®ÀÎ`);
+// 1. js íŒŒì¼ë¡œ ë”°ë¡œ ê´€ë¦¬í•œë‹¤ë©´ template literal ì„ ì •ìƒì ìœ¼ë¡œ ì‚¬ìš©ê°€ëŠ¥í•¨.
+// 2. ì•„ë˜ì™€ ê°™ì´ el tag ë‚´ë¶€ì— js ì˜ ë³€ìˆ˜ë¥¼ ë„£ì–´ì„œ ì‚¬ìš©
+// 3. backslash ë¡œ jsp el tagê°€ ë¬´ì‹œë˜ë„ë¡ í•¨
+console.log(`111 ${'${abc}'} ì™€ ${'${bbc}'} í™•ì¸`);
+console.log(`222 \${abc} ì™€ \${bbc} í™•ì¸`);
 
 $(document).ready(function(){
-	console.log(`${'${abc}'} ¿Í ${'${bbc}'} È®ÀÎ`);
-	console.log(`${1+2} ´Â 3ÀÌ´Ù`);
+	console.log(`${'${abc}'} ì™€ ${'${bbc}'} í™•ì¸`);
+	console.log(`${1+2} ëŠ” 3ì´ë‹¤`);
 });
 </script>
 </head>
