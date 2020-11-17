@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EXAM_CODING_SQL">
+
+	
+	
+	<!-- 샘플 -->
+	<select id="selectSampleList" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_CODING_SQL.selectSampleList */
+			SELECT TEST_NM AS testNm
+			  FROM TB_SAMPLE
+	</select>
+	
+	
+	<!-- exam1 -->
+	<select id="selectExam1List" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_CODING_SQL.selectExam1List */
+			SELECT EMP_CD AS empCd
+			     , POS_NM AS posNm
+			     , POS_CD AS posCd
+			     , EMP_NM AS empNm
+			     , WORK_NM AS workNm
+			     , DATE_FORMAT(ENTR_DT, '%Y-%m-%d') AS entrDt
+			     , PAY AS pay
+			  FROM TB_EMPLOY
+	</select>
+	
+	
+</mapper>

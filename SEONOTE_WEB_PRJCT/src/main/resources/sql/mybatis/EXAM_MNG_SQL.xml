@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EXAM_MNG_SQL">
+
+
+	<select id="selectExamTimesList" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.selectExamTimesList 시험회차 그룹핑 */
+			SELECT TIMES AS times, TIMES_INFO AS timesInfo
+			  FROM TB_EXAM_PAPER
+			 GROUP BY TIMES, TIMES_INFO
+			 ORDER BY TIMES
+	</select>
+	
+
+	<select id="selectExamPaperListCnt" parameterType="hashMap" resultType="Int">
+		/* EXAM_MNG_SQL.selectExamPaperListCnt */
+			SELECT COUNT(EQ_NO) AS totCnt
+			  FROM TB_EXAM_PAPER
+			 WHERE 1=1
+			 <if test="sch_times != null and sch_times != ''">
+			   AND TIMES = #{sch_times}+0
+			 </if>
+	</select>
+	
+	<select id="selectExamPaperList" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.selectExamPaperList */
+			SELECT
+				  EQ_NO AS eqNo
+				, EQ_CONT AS eqCont
+				, RIGHT_ANSWER AS rightAnswer
+				, ETC AS etc
+				, TIMES AS times
+				, TIMES_INFO AS timesInfo
+				, GRADER_CNT AS graderCnt
+				, REG_ID AS regId
+				, REG_DATE AS regDate
+				, UPT_ID AS uptId
+				, UPT_DATE AS uptDate
+			  FROM TB_EXAM_PAPER
+			 WHERE 1=1
+			 <if test="sch_times != null and sch_times != ''">
+			   AND TIMES = #{sch_times}+0
+			 </if>
+			 ORDER BY REG_DATE DESC
+			 LIMIT #{startNo}, #{pageSize}
+	</select>
+
+	
+	<!-- 시험지 등록 -->
+	<insert id="examPaperMngInsert" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examPaperMngInsert */
+			INSERT INTO TB_EXAM_PAPER
+				(
+					  EQ_CONT
+					, RIGHT_ANSWER
+					, ETC
+					, TIMES
+					, TIMES_INFO
+					, GRADER_CNT
+					, REG_ID
+					, REG_DATE
+				)
+			VALUES 
+				(
+					  #{eqCont}
+					, #{rightAnswer}
+					, #{etc}
+					, #{times}
+					, #{timesInfo}
+					, #{graderCnt}
+					, #{sid}
+					, now()
+				)
+	</insert>
+	
+
+	<update id="examPaperMngUpdate" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examPaperMngUpdate */
+			UPDATE TB_EXAM_PAPER
+			SET 
+				  RIGHT_ANSWER = #{rightAnswer}
+				, EQ_CONT = #{eqCont}
+				, ETC = #{etc}
+				, TIMES = #{times}
+				, TIMES_INFO = #{timesInfo}
+				, GRADER_CNT = #{graderCnt}
+				, UPT_ID = #{sid}
+				, UPT_DATE = now()
+			WHERE EQ_NO = #{eqNo}
+	</update>
+	
+	
+	<delete id="examPaperMngDelete" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examPaperMngDelete */
+			DELETE FROM TB_EXAM_PAPER WHERE EQ_NO = #{eqNo}
+	</delete>
+	
+	
+	<!-- 시험지 상세 조회 -->
+	<select id="examPaperMngEdit" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.examPaperMngEdit */
+			SELECT
+				  EQ_NO AS eqNo
+				, EQ_CONT AS eqCont
+				, RIGHT_ANSWER AS rightAnswer
+				, ETC AS etc
+				, TIMES AS times
+				, TIMES_INFO AS timesInfo
+				, GRADER_CNT AS graderCnt
+				, REG_ID AS regId
+				, REG_DATE AS regDate
+				, UPT_ID AS uptId
+				, UPT_DATE AS uptDate
+			 FROM TB_EXAM_PAPER
+			 WHERE EQ_NO = #{eqNo}
+	</select>
+
+	
+	<select id="selectExamUserListCnt" parameterType="hashMap" resultType="Int">
+		/* EXAM_MNG_SQL.selectExamUserListCnt */
+			SELECT COUNT(EXAM_KEY) AS totCnt
+			  FROM TB_EXAM_MASTER M
+			 WHERE 1=1
+			 <if test="sch_times != null and sch_times != ''">
+			   AND EQ_NO IN (SELECT TIMES FROM TB_EXAM_PAPER WHERE TIMES = #{sch_times}+0 GROUP BY TIMES)
+			 </if>
+	</select>
+	
+	<select id="selectExamUserList" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.selectExamUserList */
+			SELECT
+				  EXAM_KEY AS examKey
+				, NAME AS name
+				, PHONE_NO AS phoneNo
+				, EQ_NO AS eqNo
+				, EXAM_PWD AS examPwd
+				, CAREER_YN AS careerYn
+				, ETC AS etc
+				, EXAM_CMPL_YN AS examCmplYn
+				, REG_DATE AS regDate
+				, UPT_DATE AS uptDate
+			  FROM TB_EXAM_MASTER M
+			 WHERE 1=1
+			 <if test="sch_times != null and sch_times != ''">
+			   AND EQ_NO IN (SELECT TIMES FROM TB_EXAM_PAPER WHERE TIMES = #{sch_times}+0 GROUP BY TIMES)
+			 </if>
+			 ORDER BY REG_DATE DESC
+			 LIMIT #{startNo}, #{pageSize}
+	</select>
+
+	
+	<!-- 시험응시자 등록 -->
+	<insert id="examUserMngInsert" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examUserMngInsert */
+			INSERT INTO TB_EXAM_MASTER
+				(
+					  NAME
+					, PHONE_NO
+					, EQ_NO
+					, EXAM_PWD
+					, CAREER_YN
+					, ETC
+					, EXAM_CMPL_YN
+					, REG_DATE
+				)
+			VALUES 
+				(
+					  #{name}
+					, #{phoneNo}
+					, #{eqNo}
+					, #{examPwd}
+					, #{careerYn}
+					, #{etc}
+					, #{examCmplYn}
+					, now()
+				)
+	</insert>
+	
+
+	<update id="examUserMngUpdate" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examUserMngUpdate */
+			UPDATE TB_EXAM_MASTER
+			SET 
+				  NAME = #{name}
+				, PHONE_NO = #{phoneNo}
+				, EQ_NO = #{eqNo}
+				, EXAM_PWD = #{examPwd}
+				, CAREER_YN = #{careerYn}
+				, ETC = #{etc}
+				, EXAM_CMPL_YN = #{examCmplYn}
+				, UPT_DATE = now()
+			WHERE EXAM_KEY = #{examKey}
+	</update>
+	
+	
+	<delete id="examUserMngDelete" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examUserMngDelete */
+			DELETE FROM TB_EXAM_MASTER WHERE EXAM_KEY = #{examKey}
+	</delete>
+	
+	
+	<!-- 시험응시자 상세 조회 -->
+	<select id="examUserMngEdit" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.examUserMngEdit */
+			SELECT
+				  EXAM_KEY AS examKey
+				, NAME AS name
+				, PHONE_NO AS phoneNo
+				, EQ_NO AS eqNo
+				, EXAM_PWD AS examPwd
+				, CAREER_YN AS careerYn
+				, ETC AS etc
+				, EXAM_CMPL_YN AS examCmplYn
+				, REG_DATE AS regDate
+				, UPT_DATE AS uptDate
+			 FROM TB_EXAM_MASTER
+			 WHERE EXAM_KEY = #{examKey}
+	</select>
+	
+	
+	<select id="selectExamResultListCnt" parameterType="hashMap" resultType="Int">
+		/* EXAM_MNG_SQL.selectExamResultListCnt */
+			SELECT COUNT(R.EXAM_KEY) AS totCnt
+			  FROM TB_EXAM_RESULT R, TB_EXAM_MASTER M
+			 WHERE R.EXAM_KEY = M.EXAM_KEY
+			 <if test="sch_times != null and sch_times != ''">
+			   AND M.EQ_NO IN (SELECT TIMES FROM TB_EXAM_PAPER WHERE TIMES = #{sch_times}+0 GROUP BY TIMES)
+			 </if>
+	</select>
+	
+	<select id="selectExamResultList" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.selectExamResultList */
+			SELECT
+				   R.EXAM_KEY AS examKey
+				 , M.NAME AS name
+			     , M.EQ_NO AS eqNo
+				 , R.RESULT AS result
+				 , R.SCORE AS score
+				 , R.SCORE_PER AS scorePer
+				 , R.SCORE_CODING AS scoreCoding
+				 , R.SCORE_CODING_PER AS scoreCodingPer
+				 , R.RUN_TIME AS runTime
+				 , R.ETC AS etc
+				 , M.EXAM_CMPL_YN AS examCmplYn
+				 , M.CAREER_YN AS careerYn
+				 , M.ETC AS mEtc
+				 , DATE_FORMAT(R.REG_DATE, '%Y-%m-%d %H:%i:%s') AS regDate
+			  FROM TB_EXAM_RESULT R, TB_EXAM_MASTER M
+			 WHERE R.EXAM_KEY = M.EXAM_KEY
+			 <if test="sch_times != null and sch_times != ''">
+			   AND M.EQ_NO IN (SELECT TIMES FROM TB_EXAM_PAPER WHERE TIMES = #{sch_times}+0 GROUP BY TIMES)
+			 </if>
+			 ORDER BY R.REG_DATE DESC
+			 LIMIT #{startNo}, #{pageSize}
+	</select>
+	
+	
+	<update id="examResultMngUpdate" parameterType="hashMap">
+		/* EXAM_MNG_SQL.examResultMngUpdate */
+			UPDATE TB_EXAM_RESULT
+			SET 
+				  ETC = #{etc}
+				 ,SCORE_CODING = #{scoreCoding}
+				 ,SCORE_CODING_PER = #{scoreCodingPer}
+			WHERE EXAM_KEY = #{examKey}
+	</update>
+	
+	<!-- 시험응시자 상세 조회 -->
+	<select id="examResultMngEdit" parameterType="hashMap" resultType="hashMap">
+		/* EXAM_MNG_SQL.examResultMngEdit */
+			SELECT
+				  EXAM_KEY AS examKey
+                , (SELECT NAME FROM TB_EXAM_MASTER WHERE EXAM_KEY = R.EXAM_KEY) AS name
+                , (SELECT EQ_NO FROM TB_EXAM_MASTER WHERE EXAM_KEY = R.EXAM_KEY) AS eqNo
+				, RESULT AS result
+				, SCORE AS score
+				, SCORE_PER AS scorePer
+				, SCORE_CODING AS scoreCoding
+				, RUN_TIME AS runTime
+				, ETC AS etc
+				, (SELECT CAREER_YN FROM TB_EXAM_MASTER WHERE EXAM_KEY = R.EXAM_KEY) AS careerYn
+				, (SELECT ETC FROM TB_EXAM_MASTER WHERE EXAM_KEY = R.EXAM_KEY) AS mEtc
+				, REG_DATE AS regDate
+			 FROM TB_EXAM_RESULT R
+			 WHERE EXAM_KEY = #{examKey}
+	</select>
+	
+</mapper>

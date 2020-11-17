@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 파일명과 namespace는 동일하게 사용 -->
+<mapper namespace="COMMON_SQL">
+
+	<select id="loginCnt" parameterType="hashMap"  resultType="Int">
+		/* COMMON_SQL.loginCnt - 아이디 존재 카운트 */
+			SELECT COUNT(ID)
+			  FROM TB_USER
+			 WHERE BINARY ID = #{id}
+	</select>
+	
+	<select id="login" parameterType="hashMap"  resultType="hashMap">
+		/* COMMON_SQL.login - 로그인 정보조회 */
+			SELECT
+				 id
+				,name
+				,pwd
+				,reg_id as regId
+				,reg_date as regDate
+				,'Y' adminYn
+			FROM TB_USER
+			WHERE BINARY ID = #{id}
+			  AND PWD = #{pwd}
+	</select>
+	
+	
+	
+	<select id="examLoginCnt" parameterType="hashMap"  resultType="Int">
+		/* COMMON_SQL.examLoginCnt - 응시자번호 존재 카운트 */
+			SELECT COUNT(EXAM_KEY)
+			  FROM TB_EXAM_MASTER
+			 WHERE BINARY EXAM_KEY = #{id}
+	</select>
+	
+	<select id="examLogin" parameterType="hashMap"  resultType="hashMap">
+		/* COMMON_SQL.examLogin - 응시자 로그인 정보조회 */
+			SELECT
+				  EXAM_KEY AS examKey
+				, EXAM_KEY AS id
+				, NAME AS name
+				, PHONE_NO AS phoneNo
+				, EQ_NO AS eqNo
+				, ETC AS etc
+				, EXAM_CMPL_YN AS examCmplYn
+				,'Y' examUserYn
+			FROM TB_EXAM_MASTER
+			WHERE BINARY EXAM_KEY = #{id}
+			  AND BINARY EXAM_PWD = #{pwd}
+	</select>
+	
+</mapper>

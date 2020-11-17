@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <alias name="dataSource" alias="dataSource" />
+
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  -->
+<!-- 	    <property name="url" value="jdbc:mysql://insutok.co.kr:8191/employ?autoReconnect=true&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8"/> -->
+<!-- 	    <property name="username" value="exam01"/> -->
+<!-- 	    <property name="password" value="exam!@"/> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
+	    <property name="url" value="jdbc:oracle:thin@insutok.co.kr:8193/xepdb1"/>
+	    <property name="username" value="study02"/>
+	    <property name="password" value="sd2020"/>
+	</bean>
+
+</beans>

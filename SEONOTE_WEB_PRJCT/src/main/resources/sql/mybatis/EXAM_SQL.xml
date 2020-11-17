@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EXAM_SQL">
+
+	
+	
+	<!-- 시험결과 제출 -->
+	<insert id="examResultInsert" parameterType="hashMap">
+		/* EXAM_SQL.examResultInsert */
+			INSERT INTO TB_EXAM_RESULT
+				(
+					  EXAM_KEY
+					, RESULT 
+					, SCORE 
+					, SCORE_PER 
+					, RUN_TIME 
+					, ETC 
+					, REG_DATE
+				)
+			VALUES 
+				(
+					  #{sid}
+					, #{result}
+					, #{score}
+					, #{scorePer}
+					, #{runTime}
+					, #{etc}
+					, now()
+				)
+	</insert>
+	
+	
+	
+	<update id="examMaserUpdate" parameterType="hashMap">
+		/* EXAM_SQL.examMaserUpdate */
+			UPDATE TB_EXAM_MASTER
+			SET 
+				  EXAM_CMPL_YN = #{examCmplYn}
+				, UPT_DATE = now()
+			WHERE EXAM_KEY = #{sid}
+	</update>
+	
+	
+</mapper>
