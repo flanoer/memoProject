@@ -39,10 +39,12 @@ public class SampleController {
 		return "/main";
 	}
 	
-	@RequestMapping({"/list.do"})
+	@RequestMapping({"/test.do"})
 	public String list() throws Exception {
-		return "/board/list";
+		return "/board/testPage";
 	}
+	
+	
 	
 	/** 불필요 소스 **/
 	/**

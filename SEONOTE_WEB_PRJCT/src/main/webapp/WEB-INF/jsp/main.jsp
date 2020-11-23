@@ -59,5 +59,7 @@ let fncInsertCommentData = function(respData){
 
 <body>
 HELLO WORLD!
+
+<p><a href="">go to NKW NOTE PROJECT!</a></p>
 </body>
 </html>

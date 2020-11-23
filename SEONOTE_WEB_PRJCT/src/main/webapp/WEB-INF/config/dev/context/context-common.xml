@@ -12,39 +12,40 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-           <context:component-scan base-package="com">
-                     <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-                     <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-                     <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-           </context:component-scan>
+	<context:component-scan base-package="com">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 
-           <aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy />
 
-           <!-- 공통메세지처리 60초 주기로 자동 리로딩-->
-           <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-                     <property name="basenames">
-                     <list>
-                                <value>classpath:/${spring.profiles.active}/properties/message-common</value>
-                     </list>
-                     </property>
-                     <property name="defaultEncoding" value="UTF-8" />
-                     <property name="cacheSeconds">
-                                <value>60</value>
-                     </property>
-           </bean>
+	<!-- 공통메세지처리 60초 주기로 자동 리로딩 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/${spring.profiles.active}/properties/message-common</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds">
+			<value>60</value>
+		</property>
+	</bean>
 
-           <!-- 파일업로드관련설정 -->
-<!--     <bean id="spring.RegularCommonsMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-<!--                <property name="maxUploadSize" value="100000000" /> -->
-<!--                <property name="maxInMemorySize" value="100000000" /> -->
-<!--     </bean> -->
-<!--     <alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" /> -->
+	<!-- 파일업로드관련설정 -->
+	<!-- <bean id="spring.RegularCommonsMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+	<!-- <property name="maxUploadSize" value="100000000" /> -->
+	<!-- <property name="maxInMemorySize" value="100000000" /> -->
+	<!-- </bean> -->
+	<!-- <alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" 
+		/> -->
 
-           <!-- 트랜잭션관련 -->
-           <bean id="txManagerMydb" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-                     <property name="dataSource" ref="dataSource"/>
-           </bean>
-
-           <tx:annotation-driven transaction-manager="txManagerMydb" proxy-target-class="true"/>
+	<!-- 트랜잭션관련 -->
+	<bean id="txManagerMydb" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManagerMydb" proxy-target-class="true"/>
 
 </beans>

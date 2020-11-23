@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +77,22 @@ public class SampleServiceImpl implements SampleService{
 			
 		}
 		return 0;
+	}
+	
+	public Map<String, Object> getList(Map<String, Object> param) {
+		Map<String,Object> result = new HashMap<String, Object>();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			result.put("result", "success");
+			list.addAll(trxService.selectList(param, "MEMO_QUERY.selectMemoList", "mydb"));
+			log.debug("selectList check >>> {}",list);
+			result.put("data", list);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			e.printStackTrace();
+			result.put("result", "error");
+		}
+		return result;
 	}
 
 }

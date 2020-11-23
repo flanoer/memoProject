@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 파일명과 namespace는 동일하게 사용 -->
+<mapper namespace="MEMO_QUERY">
+	<select id="selectMemoList" parameterType="hashMap" resultType="hashMap">
+		/* MEMO_QUERY.selectMemoList - 메모리스트 조회 */
+		SELECT
+			M_SEQ,
+			TITLE,
+			CONTENTS,
+			USER_ID,
+			CATEGORY_ID,
+			M_LEVEL,
+			M_CHECK,
+			FST_REG_DTM,
+			LST_MOD_DTM,
+			DEL_YN,
+			M_PRNT_SEQ
+		FROM
+			MEMO.DATA_TBL
+	</select>
+</mapper>

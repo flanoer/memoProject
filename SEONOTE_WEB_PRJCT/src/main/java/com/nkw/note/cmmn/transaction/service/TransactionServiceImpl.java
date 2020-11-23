@@ -5,19 +5,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nkw.note.cmmn.transaction.dao.TransactionDao;
 
 @Service("transactionService")
+@Transactional
 public class TransactionServiceImpl implements TransactionService{
 	
 	@Autowired
 	TransactionDao trxDao;
 
-	public List<Map<String, Object>> selectList(Map<String, Object> gMap, String queryId, String jdbcName)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> selectList(Map<String, Object> gMap, String queryId, String jdbcName) throws Exception {
+		return trxDao.selectList(gMap, queryId, jdbcName);
 	}
 
 	public Map<String, Object> selectMap(Map<String, Object> gMap, String queryId, String jdbcName) throws Exception {

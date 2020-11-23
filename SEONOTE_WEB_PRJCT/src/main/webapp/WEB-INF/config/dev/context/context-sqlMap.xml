@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 
 	<bean id="sqlMapClientRef" class="org.mybatis.spring.SqlSessionFactoryBean">
-<!-- 		<property name="configLocation"> -->
-<!-- 			<value>classpath:/sql/sqlEnv/${spring.profiles.active}/sql-map-config.xml</value> -->
-<!-- 		</property> -->
-		<property name="configLocation" value="classpath:/sql/sqlEnv/${spring.profiles.active}/sql-map-config.xml"/>
+		<!-- <property name="configLocation"> -->
+		<!-- <value>classpath:/sql/sqlEnv/${spring.profiles.active}/sql-map-config.xml</value> -->
+		<!-- </property> -->
+		<!-- db 접속을 위한 것 -->
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- mybatis 기본 설정 -->
+		<property name="configLocation"	value="classpath:/sql/sqlEnv/${spring.profiles.active}/sql-map-config.xml" />
+
+		<!-- mapper(query 가 기록된 xml) 위치 설정 -->
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:/sql/mybatis/*.xml</value>
 			</list>
 		</property>
-		<property name="dataSource" ref="dataSource" />
+
+		<!-- 트랜잭션 관리를 위한 것 -->
+		<property name="transactionFactory">
+			<bean class="org.mybatis.spring.transaction.SpringManagedTransactionFactory" />
+		</property>
+
 	</bean>
-	
+
 	<bean id="sqlMapClientCommon" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlMapClientRef"/>
+		<constructor-arg ref="sqlMapClientRef" />
 	</bean>
-           
-           
 </beans>

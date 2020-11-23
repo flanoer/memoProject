@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <alias name="dataSource" alias="dataSource" />
+<!--     <alias name="dataSource" alias="dataSource" /> -->
 
 <!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
 <!-- 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  -->
@@ -11,11 +11,39 @@
 <!-- 	    <property name="password" value="exam!@"/> -->
 <!-- 	</bean> -->
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
-	    <property name="url" value="jdbc:oracle:thin@insutok.co.kr:8193/xepdb1"/>
-	    <property name="username" value="study02"/>
-	    <property name="password" value="sd2020"/>
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>  -->
+<!-- 	    <property name="url" value="jdbc:oracle:thin@insutok.co.kr:8193/xepdb1"/> -->
+<!-- 	    <property name="username" value="study02"/> -->
+<!-- 	    <property name="password" value="sd2020"/> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  -->
+<!-- 	    <property name="url" value="jdbc:mysql:///34.64.215.127:3306/?cloudSqlInstance=banded-hexagon-295808:asia-northeast3:memo-instance" />  -->
+<!-- 	   	<property name="username" value="root"/> -->
+<!-- 	   	<property name="password" value="0wMzvMg84guGs5ba"/> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" lazy-init="true">
+		<constructor-arg>
+			<bean class="com.zaxxer.hikari.HikariConfig">
+				<constructor-arg>
+					<props>
+						<prop key="jdbcUrl">jdbc:mysql://34.64.215.127:3306/?cloudSqlInstance=banded-hexagon-295808:asia-northeast3:memo-instance&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory</prop>
+						<prop key="username">naru_memo</prop>
+						<prop key="password">0wMzvMg84guGs5ba</prop>
+					</props>
+				</constructor-arg>
+				<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+				<property name="minimumIdle" value="5" />
+				<property name="maximumPoolSize" value="10" />
+				<property name="connectionTimeout" value="300000" />
+			</bean>
+		</constructor-arg>
+		<!-- <property name="socketFactory" value="com.google.cloud.sql.mysql.SocketFactory"/> -->
+		<!-- <property name="cloudSqlInstance" value="banded-hexagon-295808:asia-northeast3:memo-instance"/> -->
 	</bean>
+
 
 </beans>

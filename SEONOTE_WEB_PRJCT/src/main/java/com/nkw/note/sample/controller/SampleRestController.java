@@ -1,8 +1,12 @@
 package com.nkw.note.sample.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +36,22 @@ public class SampleRestController {
 	
 	
 	@RequestMapping("/getList.do")
-	public String getList(HttpServletRequest req, HttpServletResponse resp) {
-		// req 데이터 검증
+	public Map<String,Object> getList(HttpServletRequest req, HttpServletResponse resp) {
+		Map<String,Object> param = new HashMap<String,Object>();
+		Map<String,Object> result = new HashMap<String,Object>();
 		
+		// req 데이터 검증
+		String categoryId = StringUtils.defaultIfEmpty(req.getParameter("categoryId"), "");
 		
 		// req 데이터 변환
+		if(!StringUtils.isEmpty(categoryId)) {
+			param.put("categoryId",categoryId);
+		}
 		
 		// 조회
+		result = sampleService.getList(param);
 		
 		// resp 요청 데이터 반환
-		
-		return "";
+		return result;
 	}
 }
