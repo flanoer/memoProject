@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		
 
 <!-- ================== BEGIN BASE CSS STYLE ================== -->
+<!-- favicon error 해결 -->
+<link rel="shortcut icon" href="#">
+
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/assets/css/default/app.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/assets/css/default/pin_pattern.css" rel="stylesheet" />

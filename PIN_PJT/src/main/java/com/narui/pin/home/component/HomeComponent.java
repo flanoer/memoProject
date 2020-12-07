@@ -1,4 +1,4 @@
-package com.naruint.insutok;
+package com.narui.pin.home.component;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -14,13 +14,16 @@ import javax.crypto.NoSuchPaddingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.narui.pin.home.config.Cfg;
+
 @Component
 public class HomeComponent {
 	
 	@Autowired
-	Cfg cfg;
+	public Cfg cfg;
 	
 	private static final int PIN_DIGIT = 4;
+	private static final String ALGORITHM = "RSA/ECB/PKCS1Padding";
 
 	// 가상기패드용 랜덤문자열
 	public String randomPatternNum() {
@@ -74,8 +77,15 @@ public class HomeComponent {
 	// 공개키로 암호화된 데이터 비밀키로 복호화
 	public byte[] decrypt(byte[] encByte) 
 			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-		Cipher decrypt=Cipher.getInstance("RSA");
+		Cipher decrypt=Cipher.getInstance(ALGORITHM);
 		decrypt.init(Cipher.DECRYPT_MODE, cfg.encPrivateKey);
 		return decrypt.doFinal(encByte);
+	}
+	
+	// 비밀키로 데이터 암호화
+	public byte[] encrypt(byte[] bArr) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+		Cipher encrypt=Cipher.getInstance(ALGORITHM);
+		encrypt.init(Cipher.ENCRYPT_MODE, cfg.encPublicKey);
+		return encrypt.doFinal(bArr);
 	}
 }

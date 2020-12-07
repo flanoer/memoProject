@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-
-<properties>
-	<comment>pin</comment>		
-	<entry key="rootCa.certPath">/WEB-INF/cert/rootCA.crt</entry>
-	<entry key="rootCa.keyPath">/WEB-INF/cert/rootCA.key</entry>	
-	<entry key="rootCa.password"></entry>
-</properties>

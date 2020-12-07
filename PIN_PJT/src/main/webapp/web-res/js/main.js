@@ -148,6 +148,7 @@ let pin = {
 							let rtData = {};
 							
 							// 랜덤 키패드 데이터 암호화
+							debugger;
 							let encPpn = forge.pki.encWithPublicKey(t.encCertPem, forge.util.encodeUtf8(t.getData()));
 							rtData.authType = 'pin';
 							rtData.flag = t.flag;

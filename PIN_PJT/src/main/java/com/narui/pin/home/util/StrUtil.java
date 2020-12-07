@@ -1,4 +1,4 @@
-package com.naruint.insutok;
+package com.narui.pin.home.util;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
