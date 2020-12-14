@@ -6,18 +6,28 @@
 	<select id="selectMemoList" parameterType="hashMap" resultType="hashMap">
 		/* MEMO_QUERY.selectMemoList - 메모리스트 조회 */
 		SELECT
-			M_SEQ,
-			TITLE,
-			CONTENTS,
-			USER_ID,
-			CATEGORY_ID,
-			M_LEVEL,
-			M_CHECK,
-			FST_REG_DTM,
-			LST_MOD_DTM,
-			DEL_YN,
-			M_PRNT_SEQ
+			dtbl.M_SEQ
+			, dtbl.M_GRP
+			, dtbl.TITLE
+			, dtbl.CONTENTS
+			, utbl.USER_NICKNAME
+			, ctbl.CATEGORY_NAME
+			, dtbl.M_CHECK
+			, dtbl.FST_REG_DTM
+			, dtbl.LST_MOD_DTM
+			, dtbl.DEL_YN
+			, dtbl.M_PRNT_SEQ
+			, dtbl.M_GRP_SEQ
+			, dtbl.M_LEVEL
 		FROM
-			MEMO.DATA_TBL
+			MEMO.DATA_TBL dtbl
+			, MEMO.CATEGORY_TBL ctbl
+			, MEMO.USER_TBL utbl
+		WHERE 
+			dtbl.CATEGORY_ID = ctbl.CATEGORY_ID
+		AND
+			dtbl.USER_ID = utbl.USER_ID
+		ORDER BY 
+			dtbl.M_GRP
 	</select>
 </mapper>
