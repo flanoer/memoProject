@@ -10,7 +10,7 @@
 			, dtbl.M_GRP
 			, dtbl.TITLE
 			, dtbl.CONTENTS
-			, utbl.USER_NICKNAME
+			, NVL(utbl.USER_NICKNAME, 'UNKNOWN')
 			, ctbl.CATEGORY_NAME
 			, dtbl.M_CHECK
 			, dtbl.FST_REG_DTM
@@ -21,12 +21,10 @@
 			, dtbl.M_LEVEL
 		FROM
 			MEMO.DATA_TBL dtbl
-			, MEMO.CATEGORY_TBL ctbl
-			, MEMO.USER_TBL utbl
-		WHERE 
-			dtbl.CATEGORY_ID = ctbl.CATEGORY_ID
-		AND
-			dtbl.USER_ID = utbl.USER_ID
+		INNER JOIN 
+			MEMO.CATEGORY_TBL ctbl ON ctbl.CATEGORY_ID = dtbl.CATEGORY_ID
+		LEFT OUTER JOIN 
+			MEMO.USER_TBL utbl ON utbl.USER_ID = dtbl.USER_ID
 		ORDER BY 
 			dtbl.M_GRP
 	</select>

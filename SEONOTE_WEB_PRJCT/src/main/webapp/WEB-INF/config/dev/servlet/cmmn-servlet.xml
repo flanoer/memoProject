@@ -24,33 +24,37 @@
 
     <!-- ContentType 자동 매칭 후 View 연결 -->
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-         <property name="contentNegotiationManager">
-                     <bean id="contentNegotiationManaver" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-                              <property name="favorPathExtension" value="true" />
-                              <property name="favorParameter" value="false" />
-                              <property name="parameterName" value="mediaType" />
-                              <property name="ignoreAcceptHeader" value="false" />
-                              <property name="defaultContentType" value="text/html" />
-                              <property name="useJaf" value="false" />
-                              <property name="mediaTypes">
-                                         <map>
-                                                    <entry key="json" value="application/json"></entry>
-                                                    <entry key="json" value="text/plain"></entry>
-                                         </map>
-                              </property>
-                         </bean>
-         </property>
-         <property name="order" value="1"/>
-         <property name="defaultViews">
-	         <list>
-	             <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-	                       <property name="prefixJson" value="false"/>
-	             </bean>
-	         </list>
-         </property>
-    </bean>
+		<property name="contentNegotiationManager">
+			<bean id="contentNegotiationManaver" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+				<property name="favorPathExtension" value="true" />
+				<property name="favorParameter" value="false" />
+				<property name="parameterName" value="mediaType" />
+				<property name="ignoreAcceptHeader" value="false" />
+				<property name="defaultContentType" value="text/html" />
+				<property name="useJaf" value="false" />
+				<property name="mediaTypes">
+					<map>
+						<entry key="json" value="application/json"></entry>
+						<entry key="json" value="text/plain"></entry>
+					</map>
+				</property>
+			</bean>
+		</property>
+		<property name="order" value="1" />
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+					<property name="prefixJson" value="false" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+    
+    <!-- web서버 배포용 정적 자원 -->
+	<mvc:resources mapping="/web/**" location="/web/" />
 
-           <!-- bean을 viewResolver로 사용 -->   
+    <!-- bean을 viewResolver로 사용 -->   
     <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
          <property name="order" value="0"></property>
     </bean>
@@ -63,6 +67,6 @@
     </bean>
 
     <bean id="ajaxView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-              <property name="contentType" value="text/plain;charset=UTF-8"/>
+    	<property name="contentType" value="text/plain;charset=UTF-8"/>
     </bean>
 </beans>

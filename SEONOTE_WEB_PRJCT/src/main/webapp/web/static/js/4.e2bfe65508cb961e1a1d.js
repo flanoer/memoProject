@@ -1,0 +1,2 @@
+webpackJsonp([4],{In4w:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={name:"InsLayout",components:{InsNav:function(){return t.e(12).then(t.bind(null,"s7KC"))}}},s={render:function(){var e=this.$createElement,n=this._self._c||e;return n("div",[n("ins-nav"),this._v(" "),n("router-view")],1)},staticRenderFns:[]},u=t("VU/8")(r,s,!1,null,null,null);n.default=u.exports}});
+//# sourceMappingURL=4.e2bfe65508cb961e1a1d.js.map

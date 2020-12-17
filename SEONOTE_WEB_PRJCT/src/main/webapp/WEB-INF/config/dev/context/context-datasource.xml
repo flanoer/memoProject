@@ -32,7 +32,7 @@
 					<props>
 						<prop key="jdbcUrl">jdbc:mysql://34.64.215.127:3306/?cloudSqlInstance=banded-hexagon-295808:asia-northeast3:memo-instance&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory</prop>
 						<prop key="username">naru_memo</prop>
-						<prop key="password">0wMzvMg84guGs5ba</prop>
+						<prop key="password">*13223*dnd</prop>
 					</props>
 				</constructor-arg>
 				<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />

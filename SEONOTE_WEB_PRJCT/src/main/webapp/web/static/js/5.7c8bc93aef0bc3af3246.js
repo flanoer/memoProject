@@ -1,0 +1,2 @@
+webpackJsonp([5],{eaHA:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  "+this._s(this.msg)+"\n")])},staticRenderFns:[]},r=n("VU/8")({name:"Health",data:function(){return{msg:"건강보험"}}},s,!1,null,null,null);t.default=r.exports}});
+//# sourceMappingURL=5.7c8bc93aef0bc3af3246.js.map

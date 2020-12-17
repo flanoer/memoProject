@@ -44,7 +44,10 @@ public class SampleController {
 		return "/board/testPage";
 	}
 	
-	
+	@RequestMapping({"/node.do"})
+	public String node() throws Exception {
+		return "/node.html";
+	}
 	
 	/** 불필요 소스 **/
 	/**
